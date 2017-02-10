@@ -1,7 +1,14 @@
 <?php
     date_default_timezone_set('America/Los_Angeles');
     require_once __DIR__."/../vendor/autoload.php";
+    require_once __DIR__."/../src/Contact.php";
     require_once __DIR__."/../test-src/testContact.php";
+
+    session_start();
+    define('LIST_OF_CONTACTS', 'list_of_contacts');
+    if (empty($_SESSION[LIST_OF_CONTACTS])) {
+        $_SESSION[LIST_OF_CONTACTS] = array();
+    }
 
     $app = new Silex\Application();
 
