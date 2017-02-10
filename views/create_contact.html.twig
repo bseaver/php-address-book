@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css">
+    <title>Contacts</title>
+</head>
+<body>
+    <div class="container">
+        <h3>New Contact:</h3>
+        <ul>
+            <li>
+                <h4>
+                    {{ contact.getName }}
+                    {% if contact.getStreetAddress is not empty %}
+                        <br>{{ contact.getStreetAddress }}
+                    {% endif %}
+                    {% if contact.getCityStateZip is not empty %}
+                        <br>{{ contact.getCityStateZip }}
+                    {% endif %}
+                    {% if contact.getPhone is not empty %}
+                        <br>{{ contact.getPhone }}
+                    {% endif %}
+                </h4>
+            </li>
+        </ul>
+
+        <a href="/">Return to All Contacts</a>
+    </div> <!-- End Container -->
+</body>
+</html>

@@ -22,6 +22,15 @@
         return $app['twig']->render('contacts.html.twig', array('contacts' => Contact::getAll()));
     });
 
+    $app->post("/create_contact", function() use ($app) {
+        $contact = new Contact(
+            $_POST['contact_name'], $_POST['street_address'],
+            $_POST['city_state_zip'], $_POST['phone']
+        );
+        $contact->save();
+        return $app['twig']->render('create_contact.html.twig', array('contact' => $contact));
+    });
+
     $app->get("/testContact", function() use ($app) {
         $output = "<a href='/'>Feature not available, click to return to home page<a>";
         if ($app['debug']) {
