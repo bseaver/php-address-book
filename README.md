@@ -25,6 +25,7 @@ This projects demonstrates building an app using PHP and the Silex and Twig fram
 * Silex
 * Twig
 * HTML
+* CSS
 * Bootstrap
 * Git
 
