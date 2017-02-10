@@ -31,6 +31,11 @@
         return $app['twig']->render('create_contact.html.twig', array('contact' => $contact));
     });
 
+    $app->post("/delete_contacts", function() use ($app) {
+        Contact::deleteAll();
+        return $app['twig']->render('delete_contacts.html.twig');
+    });
+
     $app->get("/testContact", function() use ($app) {
         $output = "<a href='/'>Feature not available, click to return to home page<a>";
         if ($app['debug']) {

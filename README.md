@@ -40,7 +40,7 @@ This projects demonstrates building an app using PHP and the Silex and Twig fram
 * Phase 3 - Contact class: name, street_address, city_state_zip, phone
 * Phase 3a- Contact save() stores contact in $_SESSION['list_of_contacts']
 * Phase 3b- Test Routine: Save two contacts, list all and delete.
-* Phase 4 - Twig pages on home, /create_contact and /delete_contact
+* Phase 4 - Twig pages on home, /create_contact and /delete_contacts
 * Phase 4a- Verify buttons on home goto to create and delete pages
 * Phase 4b- Verify links on create and delete go back to home page
 * Phase 5 - On home submit contact button, new address is displayed
