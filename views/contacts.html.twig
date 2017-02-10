@@ -7,66 +7,74 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h3>View and Enter Contacts</h3>
-                <form action='/create_contact' method='post'>
+        <form action='/' method='post'>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>View and Enter Contacts</h3>
                     <div class="form-group">
                         <label for='contact_name'>Name</label>
-                        <input name='contact_name' class="form-control" type='text'>
+                        <input name='contact_name' class="form-control" type='text' value="{{ edit_contact.getName }}">
                     </div>
 
                     <div class="form-group">
                         <label for='street_address'>Street Address</label>
-                        <input name='street_address' class="form-control" type='text'>
+                        <input name='street_address' class="form-control" type='text' value="{{ edit_contact.getStreetAddress }}">
                     </div>
 
                     <div class="form-group">
                         <label for='city_state_zip'>City State Zip</label>
-                        <input name='city_state_zip' class="form-control" type='text'>
+                        <input name='city_state_zip' class="form-control" type='text' value="{{ edit_contact.getCityStateZip }}">
                     </div>
 
                     <div class="form-group">
                         <label for='phone'>Phone</label>
-                        <input name='phone' class="form-control" type='text'>
+                        <input name='phone' class="form-control" type='text' value="{{ edit_contact.getPhone }}">
                     </div>
 
-                    <button type='submit' class="btn btn-primary">Add Contact</button>
-                </form>
+                    <button type='submit' class="btn btn-primary" name="add_contact_button">Add Contact</button>
+                </div> <!-- End Col -->
 
-                <br><br>
-                <form action='/delete_contacts' method='post'>
-                    <button type='submit' class="btn btn-danger">Delete All Contacts</button>
-                </form>
-            </div> <!-- End Col -->
+                <div class="col-md-6">
+                    {% if contacts is empty %}
+                        <h3>No contacts in list</h3>
+                    {% endif %}
+                    {% if contacts is not empty %}
+                        <h3>Contact List:</h3>
+                        <table class="addressTableCell">
+                            {% for contact in contacts %}
+                                <tr>
+                                    <td>
+                                        <p>
+                                            {{ contact.getName }}
 
-            <div class="col-md-6">
-                {% if contacts is empty %}
-                    <h3>No contacts in list</h3>
-                {% endif %}
-                {% if contacts is not empty %}
-                    <h3>Contact List:</h3>
-                    <ul>
-                        {% for contact in contacts %}
-                        <li>
-                            <p>
-                                {{ contact.getName }}
-                                {% if contact.getStreetAddress is not empty %}
-                                    <br>{{ contact.getStreetAddress }}
-                                {% endif %}
-                                {% if contact.getCityStateZip is not empty %}
-                                    <br>{{ contact.getCityStateZip }}
-                                {% endif %}
-                                {% if contact.getPhone is not empty %}
-                                    <br>{{ contact.getPhone }}
-                                {% endif %}
-                            </p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </div> <!-- End Col -->
-        </div> <!-- End Row -->
+                                            {% if contact.getStreetAddress is not empty %}
+                                                <br>{{ contact.getStreetAddress }}
+                                            {% endif %}
+                                            {% if contact.getCityStateZip is not empty %}
+                                                <br>{{ contact.getCityStateZip }}
+                                            {% endif %}
+                                            {% if contact.getPhone is not empty %}
+                                                <br>{{ contact.getPhone }}
+                                            {% endif %}
+                                        </p>
+                                    </td>
+                                    <td class="deleteButtonCell">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button type="submit" class="btn btn-xs btn-warning" name="delete_one_contact_button" value="{{ loop.index0 }}">
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    {% endif %}
+                    {% if contacts | length > 1 %}
+                       <br><br>
+                       <button type='submit' class="btn btn-danger" name="delete_all_contacts_button">Delete All Contacts</button>
+                    {% endif %}
+                </div> <!-- End Col -->
+            </div> <!-- End Row -->
+        </form>
     </div> <!-- End Container -->
 </body>
 </html>

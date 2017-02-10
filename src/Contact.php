@@ -71,5 +71,10 @@
         {
             $_SESSION[LIST_OF_CONTACTS] = array();
         }
+
+        static function deleteOneContact($index_to_delete)
+        {
+            array_splice($_SESSION[LIST_OF_CONTACTS], $index_to_delete, 1);
+        }
     }
 ?>

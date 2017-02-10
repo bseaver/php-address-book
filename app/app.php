@@ -19,21 +19,38 @@
     );
 
     $app->get("/", function() use ($app) {
-        return $app['twig']->render('contacts.html.twig', array('contacts' => Contact::getAll()));
-    });
+        $edit_contact = new Contact("", "", "", "");
 
-    $app->post("/create_contact", function() use ($app) {
-        $contact = new Contact(
-            $_POST['contact_name'], $_POST['street_address'],
-            $_POST['city_state_zip'], $_POST['phone']
+        return $app['twig']->render(
+            'contacts.html.twig',
+            array('edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
         );
-        $contact->save();
-        return $app['twig']->render('create_contact.html.twig', array('contact' => $contact));
     });
 
-    $app->post("/delete_contacts", function() use ($app) {
-        Contact::deleteAll();
-        return $app['twig']->render('delete_contacts.html.twig');
+    $app->post("/", function() use ($app) {
+        if (array_key_exists("add_contact_button", $_POST)) {
+            $contact = new Contact(
+                $_POST['contact_name'], $_POST['street_address'],
+                $_POST['city_state_zip'], $_POST['phone']
+            );
+            $contact->save();
+            return $app['twig']->render('create_contact.html.twig', array('contact' => $contact));
+
+        } elseif (array_key_exists("delete_all_contacts_button", $_POST)) {
+            Contact::deleteAll();
+            return $app['twig']->render('delete_contacts.html.twig');
+
+        } elseif (array_key_exists("delete_one_contact_button", $_POST)) {
+            $edit_contact = new Contact(
+                $_POST['contact_name'], $_POST['street_address'],
+                $_POST['city_state_zip'], $_POST['phone']
+            );
+            Contact::deleteOneContact($_POST['delete_one_contact_button']);
+            return $app['twig']->render(
+                'contacts.html.twig',
+                array('edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
+            );
+        }
     });
 
     $app->get("/testContact", function() use ($app) {
