@@ -30,7 +30,9 @@
                         <label for='phone'>Phone</label>
                         <input name='phone' class='form-control' type='text' value='{{ edit_contact.getPhone }}'>
                     </div>
-
+                    {% if entry_error %}
+                        <h4>Please enter contact name and at least one other bit of information</h4>
+                    {% endif %}
                     <button type='submit' class='btn btn-primary' name='add_contact_button'>Add Contact</button>
                 </div> <!-- End Col -->
 

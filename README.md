@@ -51,6 +51,8 @@ This projects demonstrates building an app using PHP and the Silex and Twig fram
 
 * Phase 8 - Style pages with resources in web folder
 * Phase 9 - Create an individual address delete button
-* Phase 10 - Make individual addresses editable
+* Phase 10 - Use single quotes consistently where PHP variable replacement is not needed
+* Phase 11 - Prevent entry of a contact without a Name and one other piece of information
+* Phase 12 - Make individual addresses editable
 
 * End specifications

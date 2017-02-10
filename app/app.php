@@ -23,7 +23,7 @@
 
         return $app['twig']->render(
             'contacts.html.twig',
-            array('edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
+            array('entry_error' => false, 'edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
         );
     });
 
@@ -33,8 +33,24 @@
                 $_POST['contact_name'], $_POST['street_address'],
                 $_POST['city_state_zip'], $_POST['phone']
             );
-            $contact->save();
-            return $app['twig']->render('create_contact.html.twig', array('contact' => $contact));
+
+            // Save if Contact Name and at least one other field filled in
+            if (
+                $contact->getName() &&
+                (
+                    $contact->getStreetAddress() ||
+                    $contact->getCityStateZip() ||
+                    $contact->getPhone()
+                )
+            ) {
+                $contact->save();
+                return $app['twig']->render('create_contact.html.twig', array('contact' => $contact));
+            } else {
+                return $app['twig']->render(
+                    'contacts.html.twig',
+                    array('entry_error' => true, 'edit_contact' => $contact, 'contacts' => Contact::getAll())
+                );
+            }
 
         } elseif (array_key_exists('delete_all_contacts_button', $_POST)) {
             Contact::deleteAll();
@@ -48,7 +64,7 @@
             Contact::deleteOneContact($_POST['delete_one_contact_button']);
             return $app['twig']->render(
                 'contacts.html.twig',
-                array('edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
+                array('entry_error' => false, 'edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
             );
         }
     });
