@@ -106,7 +106,7 @@
 
 
     $app->get('/testContact', function() use ($app) {
-        $output = '<a href='/'>Feature not available, click to return to home page<a>';
+        $output = '<a href="/">Feature not available, click to return to home page<a>';
         if ($app['debug']) {
             $output = testContact();
         }
