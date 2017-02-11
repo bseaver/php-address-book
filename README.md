@@ -6,7 +6,7 @@
 
 ## Description
 
-This projects demonstrates building an app using PHP and the Silex and Twig frameworks.
+This project demonstrates building an app using PHP and the Silex and Twig frameworks.
 
 ## Setup/Installation Requirements
 * Clone project
