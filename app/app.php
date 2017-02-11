@@ -35,11 +35,11 @@
 
         // Save or Update if Contact Name and at least one other field filled in
         if (
-            $contact->getName() &&
-            (
-                $contact->getStreetAddress() ||
-                $contact->getCityStateZip() ||
-                $contact->getPhone()
+                $contact->getName() &&
+                (
+                    $contact->getStreetAddress() ||
+                    $contact->getCityStateZip() ||
+                    $contact->getPhone()
                 )
             ) {
             if ($edit_index == '*') {
