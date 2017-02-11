@@ -23,7 +23,7 @@
 
         return $app['twig']->render(
             'contacts.html.twig',
-            array('entry_error' => false, 'edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
+            array('edit_index' => '*', 'entry_error' => false, 'edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
         );
     });
 
@@ -48,7 +48,7 @@
             } else {
                 return $app['twig']->render(
                     'contacts.html.twig',
-                    array('entry_error' => true, 'edit_contact' => $contact, 'contacts' => Contact::getAll())
+                    array('edit_index' => '*', 'entry_error' => true, 'edit_contact' => $contact, 'contacts' => Contact::getAll())
                 );
             }
 
@@ -64,10 +64,46 @@
             Contact::deleteOneContact($_POST['delete_one_contact_button']);
             return $app['twig']->render(
                 'contacts.html.twig',
-                array('entry_error' => false, 'edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
+                array('edit_index' => '*', 'entry_error' => false, 'edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
+            );
+        } elseif (array_key_exists('edit_one_contact_button', $_POST)) {
+            $contact_index = $_POST['edit_one_contact_button'];
+            $edit_contact = Contact::contactByIndex($contact_index);
+            return $app['twig']->render(
+                'contacts.html.twig',
+                array('edit_index' => (string) $contact_index, 'entry_error' => false, 'edit_contact' => $edit_contact, 'contacts' => Contact::getAll())
+            );
+        } elseif (array_key_exists('update_contact_button', $_POST)) {
+            $edit_index = $_POST['update_contact_button'];
+            $contact = new Contact(
+                $_POST['contact_name'], $_POST['street_address'],
+                $_POST['city_state_zip'], $_POST['phone']
+            );
+
+            // Update if Contact Name and at least one other field filled in
+            if (
+                $contact->getName() &&
+                (
+                    $contact->getStreetAddress() ||
+                    $contact->getCityStateZip() ||
+                    $contact->getPhone()
+                )
+            ) {
+                Contact::updateContact($edit_index, $contact);
+                $edit_index = '*';
+                $entry_error = false;
+                $contact = new Contact('', '', '', '');
+            } else {
+                $entry_error = true;
+            }
+
+            return $app['twig']->render(
+                'contacts.html.twig',
+                array('edit_index' => $edit_index, 'entry_error' => $entry_error, 'edit_contact' => $contact, 'contacts' => Contact::getAll())
             );
         }
     });
+
 
     $app->get('/testContact', function() use ($app) {
         $output = '<a href='/'>Feature not available, click to return to home page<a>';

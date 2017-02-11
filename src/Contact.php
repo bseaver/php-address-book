@@ -76,5 +76,15 @@
         {
             array_splice($_SESSION[LIST_OF_CONTACTS], $index_to_delete, 1);
         }
+
+        static function contactByIndex($index)
+        {
+            return $_SESSION[LIST_OF_CONTACTS][$index];
+        }
+
+        static function updateContact($index, $contact)
+        {
+            $_SESSION[LIST_OF_CONTACTS][$index] = $contact;
+        }
     }
 ?>

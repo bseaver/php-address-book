@@ -33,7 +33,11 @@
                     {% if entry_error %}
                         <h4>Please enter contact name and at least one other bit of information</h4>
                     {% endif %}
-                    <button type='submit' class='btn btn-primary' name='add_contact_button'>Add Contact</button>
+                    {% if edit_index == '*' %}
+                        <button type='submit' class='btn btn-primary' name='add_contact_button'>Add Contact</button>
+                    {% else %}
+                        <button type='submit' class='btn btn-primary' name='update_contact_button' value='{{ edit_index }}'>Update Contact</button>
+                    {% endif %}
                 </div> <!-- End Col -->
 
                 <div class='col-md-6'>
@@ -59,6 +63,12 @@
                                                 <br>{{ contact.getPhone }}
                                             {% endif %}
                                         </p>
+                                    </td>
+                                    <td>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button type='submit' class='btn btn-xs btn-info' name='edit_one_contact_button' value='{{ loop.index0 }}'>
+                                            Edit
+                                        </button>
                                     </td>
                                     <td>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
