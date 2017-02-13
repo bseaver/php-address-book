@@ -9,11 +9,11 @@
 This project demonstrates building an app using PHP and the Silex and Twig frameworks.
 
 ## Setup/Installation Requirements
+* See https://secure.php.net/ for details on installing _PHP_.  Note: PHP is typically already installed on Mac.
+* See https://getcomposer.org for details on installing _composer_.
 * Clone project
-* Run `composer install --prefer-source --no-interaction` from project root
-* (See https://getcomposer.org for details on installing _composer_)
-* Start PHP in web folder: Example web $ `php -S localhost:8000`
-* (See https://secure.php.net/ for details on installing _PHP_)
+* From project root, run > `composer install --prefer-source --no-interaction`
+* From web folder in project, Start PHP > `php -S localhost:8000`
 * In web browser open `localhost:8000`
 
 ## Known Bugs
