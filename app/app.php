@@ -31,6 +31,10 @@
 
 
     $app->post('/', function() use ($app) {
+        $contact = new Contact(
+            $_POST['contact_name'], $_POST['street_address'],
+            $_POST['city_state_zip'], $_POST['phone']
+        );
         $isAdd = false;
         $isEdit = false;
         $next_template = 'contacts.html.twig';
@@ -40,10 +44,6 @@
 
         if (array_key_exists('add_contact_button', $_POST)) {
             $isAdd = true;
-            $contact = new Contact(
-                $_POST['contact_name'], $_POST['street_address'],
-                $_POST['city_state_zip'], $_POST['phone']
-            );
         }
 
         if (array_key_exists('delete_all_contacts_button', $_POST)) {
@@ -52,10 +52,6 @@
         }
 
         if (array_key_exists('delete_one_contact_button', $_POST)) {
-            $contact = new Contact(
-                $_POST['contact_name'], $_POST['street_address'],
-                $_POST['city_state_zip'], $_POST['phone']
-            );
             Contact::deleteOneContact($_POST['delete_one_contact_button']);
         }
 
@@ -67,10 +63,6 @@
         if (array_key_exists('update_contact_button', $_POST)) {
             $isEdit = true;
             $edit_index = $_POST['update_contact_button'];
-            $contact = new Contact(
-                $_POST['contact_name'], $_POST['street_address'],
-                $_POST['city_state_zip'], $_POST['phone']
-            );
         }
 
         if ($isAdd || $isEdit) {
