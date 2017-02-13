@@ -23,7 +23,7 @@
             'contacts.html.twig',
             array('edit_index' => '',
                 'entry_error' => false,
-                'edit_contact' => new Contact('', '', '', ''),
+                'edit_contact' => new Contact(),
                 'contacts' => Contact::getAll()
             )
         );
@@ -68,7 +68,7 @@
             // Valid entry needs Name and at least one other bit of info
             $entry_error = !$contact->getName();
             if (!$entry_error) {
-                $entry_error = $contact->getStreetAddress() || $contact->getCityStateZip() || $contact->getPhone();
+                $entry_error = !($contact->getStreetAddress() || $contact->getCityStateZip() || $contact->getPhone());
             }
         }
 
@@ -80,7 +80,7 @@
 
             if ($isEdit) {
                 Contact::updateContact($edit_index, $contact);
-                $contact = new Contact('', '', '', '');
+                $contact = new Contact();
                 $edit_index = '';
             }
         }
@@ -88,8 +88,8 @@
         return $app['twig']->render(
             $next_template,
             array(
-                'edit_index' => '',
-                'entry_error' => false,
+                'edit_index' => $edit_index,
+                'entry_error' => $entry_error,
                 'edit_contact' => $contact,
                 'contacts' => Contact::getAll()
             )

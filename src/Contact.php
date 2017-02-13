@@ -6,7 +6,7 @@
         private $city_state_zip;
         private $phone;
 
-        function __construct($new_contact_name, $new_street_address, $new_city_state_zip, $new_phone)
+        function __construct($new_contact_name = '', $new_street_address = '', $new_city_state_zip = '', $new_phone = '')
         {
             $this->setName($new_contact_name);
             $this->setStreetAddress($new_street_address);
