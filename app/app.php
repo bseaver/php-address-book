@@ -21,7 +21,7 @@
     $app->get('/', function() use ($app) {
         return $app['twig']->render(
             'contacts.html.twig',
-            array('edit_index' => '*',
+            array('edit_index' => '',
                 'entry_error' => false,
                 'edit_contact' => new Contact('', '', '', ''),
                 'contacts' => Contact::getAll()
@@ -38,8 +38,7 @@
         $isAdd = false;
         $isEdit = false;
         $next_template = 'contacts.html.twig';
-        // Asterix means adding a contact, not editing a contact
-        $edit_index = '*';
+        $edit_index = '';
         $entry_error = false;
 
         if (array_key_exists('add_contact_button', $_POST)) {
@@ -82,14 +81,14 @@
             if ($isEdit) {
                 Contact::updateContact($edit_index, $contact);
                 $contact = new Contact('', '', '', '');
-                $edit_index = '*';
+                $edit_index = '';
             }
         }
 
         return $app['twig']->render(
             $next_template,
             array(
-                'edit_index' => '*',
+                'edit_index' => '',
                 'entry_error' => false,
                 'edit_contact' => $contact,
                 'contacts' => Contact::getAll()
