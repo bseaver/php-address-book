@@ -11,15 +11,15 @@
         <ul>
             <li>
                 <h4>
-                    {{ contact.getName }}
-                    {% if contact.getStreetAddress is not empty %}
-                        <br>{{ contact.getStreetAddress }}
+                    {{ edit_contact.getName }}
+                    {% if edit_contact.getStreetAddress is not empty %}
+                        <br>{{ edit_contact.getStreetAddress }}
                     {% endif %}
-                    {% if contact.getCityStateZip is not empty %}
-                        <br>{{ contact.getCityStateZip }}
+                    {% if edit_contact.getCityStateZip is not empty %}
+                        <br>{{ edit_contact.getCityStateZip }}
                     {% endif %}
-                    {% if contact.getPhone is not empty %}
-                        <br>{{ contact.getPhone }}
+                    {% if edit_contact.getPhone is not empty %}
+                        <br>{{ edit_contact.getPhone }}
                     {% endif %}
                 </h4>
             </li>
